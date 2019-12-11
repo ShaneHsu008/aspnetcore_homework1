@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vscode
+/.vs/aspnetcore_homework
+/aspnetcore_homework/bin/Debug/netcoreapp3.1
+/aspnetcore_homework/obj
