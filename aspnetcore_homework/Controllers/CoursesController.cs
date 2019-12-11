@@ -27,6 +27,48 @@ namespace aspnetcore_homework.Controllers
             return await _context.Course.ToListAsync();
         }
 
+        // GET: api/Courses/Students
+        [HttpGet("StudentsAll")]
+        public async Task<ActionResult<IEnumerable<VwCourseStudents>>> GetCourseStudents()
+        {
+            return await _context.VwCourseStudents.ToListAsync();
+        }
+
+        // GET: api/Courses/Students
+        [HttpGet("Student/{courseId}")]
+        public async Task<ActionResult<VwCourseStudents>> GetCourseStudent(int courseId)
+        {
+            var courseStudent = await _context.VwCourseStudents.FirstOrDefaultAsync(v => v.CourseId == courseId);
+
+            if (courseStudent == null)
+            {
+                return NotFound();
+            }
+
+            return courseStudent;
+        }
+
+        // GET: api/Courses/Students
+        [HttpGet("StudentCountAll")]
+        public async Task<ActionResult<IEnumerable<VwCourseStudentCount>>> GetCourseStudentCount()
+        {
+            return await _context.VwCourseStudentCount.ToListAsync();
+        }
+
+        // GET: api/Courses/Students
+        [HttpGet("StudentCount/{courseId}")]
+        public async Task<ActionResult<VwCourseStudentCount>> GetCourseStudentCount(int courseId)
+        {
+            var courseStudentCount = await _context.VwCourseStudentCount.FirstOrDefaultAsync(v => v.CourseId == courseId);
+
+            if (courseStudentCount == null)
+            {
+                return NotFound();
+            }
+
+            return courseStudentCount;
+        }
+
         // GET: api/Courses/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(int id)
