@@ -41,6 +41,27 @@ namespace aspnetcore_homework.Controllers
             return department;
         }
 
+        // GET: api/Departments/DepartmentCourseCount
+        [HttpGet("DepartmentCourseCountAll")]
+        public async Task<ActionResult<IEnumerable<VwDepartmentCourseCount>>> GetDepartmentCourseCountAll()
+        {
+            return await _context.VwDepartmentCourseCount.FromSqlRaw("SELECT * FROM vwDepartmentCourseCount").ToListAsync(); ;
+        }
+
+        // GET: api/Departments/DepartmentCourseCount/5
+        [HttpGet("DepartmentCourseCount/{departmentId}")]
+        public async Task<ActionResult<VwDepartmentCourseCount>> GetDepartmentCourseCount(int departmentId)
+        {
+            var departmentCourseCount = await _context.VwDepartmentCourseCount.FromSqlRaw($"SELECT * FROM vwDepartmentCourseCount WHERE DepartmentID = {departmentId}").FirstOrDefaultAsync();
+
+            if (departmentCourseCount == null)
+            {
+                return NotFound();
+            }
+
+            return departmentCourseCount;
+        }
+
         // PUT: api/Departments/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
