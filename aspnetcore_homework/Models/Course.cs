@@ -30,5 +30,7 @@ namespace aspnetcore_homework.Models
         public virtual ICollection<CourseInstructor> CourseInstructor { get; set; }
         [InverseProperty("Course")]
         public virtual ICollection<Enrollment> Enrollment { get; set; }
+
+        public DateTime DateModified { get; set; } = DateTime.Now;
     }
 }
