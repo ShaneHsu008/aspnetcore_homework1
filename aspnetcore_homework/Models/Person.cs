@@ -41,7 +41,7 @@ namespace aspnetcore_homework.Models
         [InverseProperty("Student")]
         public virtual ICollection<Enrollment> Enrollment { get; set; }
 
-        public DateTime DateModified { get; set; } = DateTime.Now;
+        public DateTime DateModified { get; set; }
 
         public bool IsDelete { get; set; }
     }

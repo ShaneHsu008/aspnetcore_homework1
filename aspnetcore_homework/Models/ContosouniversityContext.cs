@@ -163,9 +163,20 @@ namespace aspnetcore_homework.Models
             var courseEntries = ChangeTracker.Entries<Course>();
             foreach (var courseEntry in courseEntries)
             {
+                if (courseEntry.State == EntityState.Added)
+                {
+                    courseEntry.CurrentValues.SetValues(new { DateModified = DateTime.Now });
+                }
+
                 if (courseEntry.State == EntityState.Deleted)
                 {
                     courseEntry.Property(p => p.IsDelete).CurrentValue = true;
+                    courseEntry.State = EntityState.Modified;
+                }
+
+                if (courseEntry.State == EntityState.Modified)
+                {
+                    courseEntry.Property(p => p.DateModified).CurrentValue = DateTime.Now;
                     courseEntry.State = EntityState.Modified;
                 }
             }
@@ -173,9 +184,20 @@ namespace aspnetcore_homework.Models
             var departmentEntries = ChangeTracker.Entries<Department>();
             foreach (var departmentEntrie in departmentEntries)
             {
+                if (departmentEntrie.State == EntityState.Added)
+                {
+                    departmentEntrie.CurrentValues.SetValues(new { DateModified = DateTime.Now });
+                }
+
                 if (departmentEntrie.State == EntityState.Deleted)
                 {
                     departmentEntrie.Property(p => p.IsDelete).CurrentValue = true;
+                    departmentEntrie.State = EntityState.Modified;
+                }
+
+                if (departmentEntrie.State == EntityState.Modified)
+                {
+                    departmentEntrie.Property(p => p.DateModified).CurrentValue = DateTime.Now;
                     departmentEntrie.State = EntityState.Modified;
                 }
             }
@@ -183,9 +205,20 @@ namespace aspnetcore_homework.Models
             var personEntries = ChangeTracker.Entries<Person>();
             foreach (var personEntrie in personEntries)
             {
+                if (personEntrie.State == EntityState.Added)
+                {
+                    personEntrie.CurrentValues.SetValues(new { DateModified = DateTime.Now });
+                }
+
                 if (personEntrie.State == EntityState.Deleted)
                 {
                     personEntrie.Property(p => p.IsDelete).CurrentValue = true;
+                    personEntrie.State = EntityState.Modified;
+                }
+
+                if (personEntrie.State == EntityState.Modified)
+                {
+                    personEntrie.Property(p => p.DateModified).CurrentValue = DateTime.Now;
                     personEntrie.State = EntityState.Modified;
                 }
             }

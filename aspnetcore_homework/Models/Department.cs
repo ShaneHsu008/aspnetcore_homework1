@@ -33,7 +33,7 @@ namespace aspnetcore_homework.Models
         [InverseProperty("Department")]
         public virtual ICollection<Course> Course { get; set; }
 
-        public DateTime DateModified { get; set; } = DateTime.Now;
+        public DateTime DateModified { get; set; }
 
         public bool IsDelete { get; set; }
     }
