@@ -127,18 +127,34 @@ namespace aspnetcore_homework.Controllers
             return CreatedAtAction("GetCourse", new { id = course.CourseId }, course);
         }
 
+        //// DELETE: api/Courses/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Course>> DeleteCourse(int id)
+        //{
+        //    var course = await _context.Course.FindAsync(id);
+        //    if (course == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Course.Remove(course);
+        //    await _context.SaveChangesAsync();
+
+        //    return course;
+        //}
+
         // DELETE: api/Courses/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Course>> DeleteCourse(int id)
+        public ActionResult<Course> DeleteCourse(int id)
         {
-            var course = await _context.Course.FindAsync(id);
+            var course =  _context.Course.Find(id);
             if (course == null)
             {
                 return NotFound();
             }
 
             _context.Course.Remove(course);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return course;
         }

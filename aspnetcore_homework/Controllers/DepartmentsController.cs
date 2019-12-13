@@ -89,6 +89,21 @@ namespace aspnetcore_homework.Controllers
             return CreatedAtAction("GetDepartment", new { id = department.DepartmentId }, department);
         }
 
+        // DELETE: api/Departments/DeleteBySP/5
+        [HttpDelete("DeleteBySP/{id}")]
+        public async Task<ActionResult<Department>> DeleteDepartmentDeleteBySP(int id)
+        {
+            var department = await _context.Department.FindAsync(id);
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            await _context.Database.ExecuteSqlInterpolatedAsync($"[dbo].[Department_Delete] {id},{department.RowVersion}");
+
+            return department;
+        }
+
         // DELETE: api/Departments/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Department>> DeleteDepartment(int id)
@@ -99,7 +114,8 @@ namespace aspnetcore_homework.Controllers
                 return NotFound();
             }
 
-            await _context.Database.ExecuteSqlInterpolatedAsync($"[dbo].[Department_Delete] {id},{department.RowVersion}");
+            _context.Department.Remove(department);
+            await _context.SaveChangesAsync();
 
             return department;
         }

@@ -34,5 +34,7 @@ namespace aspnetcore_homework.Models
         public virtual ICollection<Course> Course { get; set; }
 
         public DateTime DateModified { get; set; } = DateTime.Now;
+
+        public bool IsDelete { get; set; }
     }
 }
