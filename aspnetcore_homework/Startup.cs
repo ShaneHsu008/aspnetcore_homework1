@@ -30,7 +30,7 @@ namespace aspnetcore_homework
             // using Microsoft.EntityFrameworkCore;
             services.AddDbContext<ContosouniversityContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services.AddControllers();
             services.AddSwaggerDocument();
         }
@@ -41,6 +41,10 @@ namespace aspnetcore_homework
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
             }
 
 

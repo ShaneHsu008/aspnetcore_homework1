@@ -196,5 +196,12 @@ namespace aspnetcore_homework.Controllers
         {
             return _context.Course.Any(e => e.CourseId == id);
         }
+
+        [HttpGet("String")]
+        [Produces("test/json")]
+        public String GetString()
+        {
+            throw new System.Exception("Error msg");
+        }
     }
 }
