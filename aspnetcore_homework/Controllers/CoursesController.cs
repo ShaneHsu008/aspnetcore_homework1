@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using aspnetcore_homework.Models;
+using aspnetcore_homework.ViewModels;
 
 namespace aspnetcore_homework.Controllers
 {
@@ -88,12 +89,43 @@ namespace aspnetcore_homework.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse(int id, Course course)
+        public async Task<IActionResult> PutCourse(int id)
         {
-            if (id != course.CourseId)
+            var course = _context.Course.Find(id);
+
+            if (!await TryUpdateModelAsync(course))
             {
                 return BadRequest();
             }
+
+            _context.Entry(course).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CourseExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchCourse(int id, PatchCourseVM patchCourse)
+        {
+            var course = _context.Course.Find(id);
+
+            course.Title = patchCourse.Title;
+            course.DepartmentId = patchCourse.DepartmentId;
 
             _context.Entry(course).State = EntityState.Modified;
 
@@ -148,7 +180,7 @@ namespace aspnetcore_homework.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Course> DeleteCourse(int id)
         {
-            var course =  _context.Course.Find(id);
+            var course = _context.Course.Find(id);
             if (course == null)
             {
                 return NotFound();
