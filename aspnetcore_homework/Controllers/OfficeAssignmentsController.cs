@@ -10,6 +10,7 @@ using aspnetcore_homework.Models;
 namespace aspnetcore_homework.Controllers
 {
     [Route("api/[controller]")]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     public class OfficeAssignmentsController : ControllerBase
     {
